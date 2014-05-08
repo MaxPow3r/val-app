@@ -2,13 +2,16 @@ library(shiny)
 library (maps)
 library(ggplot2)
 
+# Load data 
 kom<- readRDS("data/kommunder_val.rds")
+# add source script
 source("helper.R")
 
 shinyServer(function(input, output) {
  
-  output$korv <- renderPlot({
+  output$map <- renderPlot({
     
+    # when "X" is choosen, decide which data to use.
     data <- switch (input$var,
                     "S" =  kom$S_PROCENT,
                     "M" = kom$M_PROCENT,
@@ -21,6 +24,9 @@ shinyServer(function(input, output) {
                     "JL"= kom$JL_PROCENT,
                     "KD"= kom$KD_PROCENT,
                     "SD"= kom$SD_PROCENT,)
+    
+    # when "X" is choosen, decide which color to use for max in legend.
+    #(white is set to min)
     farg <- switch (input$var,
                     "S" = "red",
                     "M" = "darkblue",
@@ -33,6 +39,8 @@ shinyServer(function(input, output) {
                     "JL"= "#EDC202",
                     "SD"= "#3D2602",
                     "KD"= "purple",)
+    
+    # Set legend title
     legend <- switch (input$var,
                     "S" = "% S",
                     "M" = "% M",
@@ -44,8 +52,9 @@ shinyServer(function(input, output) {
                     "FI"= "%FI",
                     "JL"= "%JL",
                     "SD"= "%SD",
-                    "KD"= "%KD")
+                    "KD"= "%KD",)
     
+    #Create map with function created in helper.R 
     Map <- procent_karta(data = kom, var = data, color = farg, legend.title = legend)
    plot(Map) 
    
