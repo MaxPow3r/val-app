@@ -47,15 +47,28 @@ shinyServer(function(input, output) {
                     "V" = "% V",
                     "MP"= "% MP",
                     "FP"= "% FP",
-                    "C" = "% FP",
+                    "C" = "% C",
                     "PP"= "%PP",
                     "FI"= "%FI",
                     "JL"= "%JL",
                     "SD"= "%SD",
                     "KD"= "%KD",)
+    title <- switch (input$var,
+                      "S" = "Socialdemokraterna",
+                      "M" = "Moderaterna",
+                      "V" = "Vänsterpartiet",
+                      "MP"= "Miljöpartiet",
+                      "FP"= "Folkpartiet",
+                      "C" = "Centerpartiet",
+                      "PP"= "Piratpartiet",
+                      "FI"= "Feministiskt Initiativ",
+                      "JL"= "Junilistan",
+                      "SD"= "Sverigedemokraterna",
+                      "KD"= "Kristdemokraterna",)
+    
     
     #Create map with function created in helper.R 
-    Map <- procent_karta(data = kom, var = data, color = farg, legend.title = legend)
+    Map <- procent_karta(data = kom, var = data, color = farg, legend.title = legend, title=title)
    plot(Map) 
    
   })
