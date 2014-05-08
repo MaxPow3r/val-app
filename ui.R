@@ -9,15 +9,19 @@ shinyUI(fluidPage(
     hr(),
     
     fluidRow(
-      column(3,
-             h4("Välj parti"),
+      column(1,
             
-       selectInput("var", label = h5("Vilket parti du vill studera?"), 
+       selectInput("var", label = h5("Välj Parti"), 
                   choices = c("S", "MP" , "V","M", "FP", "C", "KD", "FI", "SD", "PP","JL"
                                   ),
                   selected = "S")
      
         ),
-      plotOutput("map")
-)))
+      column (4,
+              plotOutput("map",  height="600px")
+      )
+)
+
+
+  ))
 
