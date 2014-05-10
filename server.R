@@ -39,7 +39,7 @@ shinyServer(function(input, output) {
                     "FI"= "hotpink",
                     "JL"= "#EDC202",
                     "SD"= "#3D2602",
-                    "KD"= "purple",)
+                    "KD"= "#38005e",)
     
     # Set legend title
     legend <- switch (input$var,
@@ -100,14 +100,14 @@ shinyServer(function(input, output) {
                       "FI"= "hotpink",
                       "JL"= "#EDC202",
                       "SD"= "#3D2602",
-                      "KD"= "purple",)
+                      "KD"= "#38005e",)
     
     
    
     
     
     #Create map with function created in helper.R 
-    hist <- procent_histogram(data = kom2, var = data2, color=farg, bin=0.5)
+    hist <- procent_histogram(data = kom2, var = data2, color=farg, input$bin)
     plot(hist) 
     
   })

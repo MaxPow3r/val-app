@@ -24,8 +24,8 @@ shinyUI(fluidPage(
 
       
       column(2,
-             sliderInput("slider1", label = h3("Sliders"),
-                         min = 0, max = 4, value = 1)
+             sliderInput("bin", label = h5("Välj intervall för histogram"),
+                         min = 0.1, max = 1, value = 0.5 ,step=0.1)
              ),
       
       column (4,
