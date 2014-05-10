@@ -3,7 +3,8 @@ library (maps)
 library(ggplot2)
 
 # Load data 
-kom<- readRDS("data/kommunder_val.rds")
+kom <- readRDS("data/kommunder_val.rds")
+kom2 <- readRDS("data/kommuner.rds")
 # add source script
 source("helper.R")
 
@@ -35,7 +36,7 @@ shinyServer(function(input, output) {
                     "FP"= "#01024D",
                     "C" = "#014D0C",
                     "PP"= "black",
-                    "FI"= "#850353",
+                    "FI"= "hotpink",
                     "JL"= "#EDC202",
                     "SD"= "#3D2602",
                     "KD"= "purple",)
@@ -71,5 +72,43 @@ shinyServer(function(input, output) {
     Map <- procent_karta(data = kom, var = data, color = farg, legend.title = legend, title=title)
    plot(Map) 
    
+  })
+  output$hist <- renderPlot({
+    
+    # when "X" is choosen, decide which data to use.
+    data2 <- switch (input$var,
+                     "S" =  kom2$S_PROCENT,
+                     "M" = kom2$M_PROCENT,
+                     "V" = kom2$V_PROCENT,
+                     "MP"= kom2$MP_PROCENT,
+                     "FP"= kom2$FP_PROCENT,
+                     "C" = kom2$C_PROCENT,
+                     "PP"= kom2$PP_PROCENT,
+                     "FI"= kom2$FI_PROCENT,
+                     "JL"= kom2$JL_PROCENT,
+                     "KD"= kom2$KD_PROCENT,
+                     "SD"= kom2$SD_PROCENT,)
+    
+    farg   <- switch (input$var,
+                      "S" = "red",
+                      "M" = "darkblue",
+                      "V" = "#BA0214",
+                      "MP"= "#61AB00",
+                      "FP"= "#01024D",
+                      "C" = "#014D0C",
+                      "PP"= "black",
+                      "FI"= "hotpink",
+                      "JL"= "#EDC202",
+                      "SD"= "#3D2602",
+                      "KD"= "purple",)
+    
+    
+   
+    
+    
+    #Create map with function created in helper.R 
+    hist <- procent_histogram(data = kom2, var = data2, color=farg, bin=0.5)
+    plot(hist) 
+    
   })
 })
